@@ -34,7 +34,7 @@ def show_n():
         "$group": {
             "_id": "null",
             "total_users" : {"$sum" : "$pplnum"}
-        }}])))
+        }}]))[0]["total_users"])
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3100', debug=True)
