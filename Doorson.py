@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_pymongo import PyMongo
-from datetime import datetime, pytz
+from datetime import datetime
+import pytz
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
