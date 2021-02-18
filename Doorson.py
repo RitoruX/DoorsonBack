@@ -65,9 +65,9 @@ def show_users():
     query = doorsonCollections.find()
     output = []
     for element in query:
-        temp_string = element['firstname'][0:2] + ('x' * (len(element['firstname']) - 1))
+        # temp_string = element['firstname'][0:2] + ('x' * (len(element['firstname']) - 1))
         output.append({
-            "firstname" : temp_string,
+            "firstname" : element['firstname'],
             "pplnum" : element['pplnum'],
             "time" : element['time'],
             "date" : element['date']
