@@ -20,7 +20,7 @@ def check_in():
         "last_name" : data["last_name"],
         "n_persons" : data["n_persons"],
         "tel" : data["tel"],
-        "time" : datetime.now(pytz.timezone("Thailand/Bangkok"))
+        "time" : datetime.now(pytz.timezone("Asia/Bangkok"))
     }
     doorsonCollections.insert(check_in_query)
     return {"result" : "Checkin Successfully"}
