@@ -38,7 +38,7 @@ def show_n():
     list_pplnum.pop("_id")
     return dumps(list_pplnum)
 
-@app.route('/check_out', methods=['UPDATE'])
+@app.route('/check_out', methods=['PATCH'])
 def check_out():
     data = request.json
     filt = {'firstname': data['firstname']}
@@ -73,6 +73,7 @@ def show_users():
             "date" : element['date']
         })
     return {"result" : output}
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3000', debug=True)
