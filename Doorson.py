@@ -38,10 +38,12 @@ def show_n():
     list_pplnum.pop("_id")
     return dumps(list_pplnum)
 
-@app.route('/check_out', methods=['DELETE'])
+@app.route('/check_out', methods=['UPDATE'])
 def check_out():
-    data = data = request.json
-    doorsonCollections.delete_one({"firstname" : data["firstname"]})
+    data = request.json
+    filt = {'firstname': data['firstname']}
+    updated_content = {"$set": {'pplnum' : 0}}
+    doorsonCollections.update_one(filt, updated_content)
     return {"result" : "Check-Out Successfully"}
 
 if __name__ == "__main__":
