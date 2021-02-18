@@ -26,7 +26,7 @@ def check_in():
         "time" : now.strftime('%H:%M:%S')
     }
     doorsonCollections.insert(check_in_query)
-    return {"result" : "Checkin Successfully"}
+    return {"result" : "Check-In Successfully"}
 
 @app.route('/show_n', methods=['GET'])
 def show_n():
@@ -65,7 +65,7 @@ def show_users():
     query = doorsonCollections.find()
     output = []
     for element in query:
-        temp_string = element['firstname'][0] + ('x' * (len(element['firstname']) - 1))
+        temp_string = element['firstname'][0:2] + ('x' * (len(element['firstname']) - 1))
         output.append({
             "firstname" : temp_string,
             "pplnum" : element['pplnum'],
