@@ -31,6 +31,7 @@ def check_in():
 def show_n():
     return doorsonCollections.aggregate([{
         "$group": {
+            "_id": "null",
             "total_users" : {"$sum" : "$n_person"}
         }}])
 
