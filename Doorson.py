@@ -46,6 +46,20 @@ def check_out():
     doorsonCollections.update_one(filt, updated_content)
     return {"result" : "Check-Out Successfully"}
 
+@app.route('/show_admin', methods=['GET'])
+def show_admin():
+    query = doorsonCollections.find()
+    output = []
+    for element in query:
+        output.append({
+            "firstname" : element['firstname'],
+            "lastname" : element['lastname'],
+            "pplnum" : element['pplnum'],
+            "time" : element['time'],
+            "date" : element['date']
+        })
+    return output
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3000', debug=True)
 # @app.route("/check_out", methods=["DELETE"])
