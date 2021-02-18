@@ -15,7 +15,7 @@ doorsonCollections = mongo.db.data
 @app.route('/check_in', methods=['POST'])
 def check_in():
     data = request.json
-    now = datetime.datetime.now(pytz.timezone('Asia/Bangkok'))
+    now = datetime.now(pytz.timezone('Asia/Bangkok'))
     check_in_query = {
         "first_name" : data["first_name"],
         "last_name" : data["last_name"],
