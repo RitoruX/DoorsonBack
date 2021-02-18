@@ -1,0 +1,29 @@
+from flask import Flask, request
+from flask_pymongo import PyMongo
+from datetime import datetime
+from flask_cors import CORS, cross_origin
+
+app = Flask(__name__)
+app.config['MONGO_URI'] = 'mongodb://exceed_group12:nhm88g6s@158.108.182.0:2255/exceed_group12'
+mongo = PyMongo(app)
+
+cors = CORS(app, support_credentials=True)
+
+doorsonCollections = mongo.db.data
+
+@app.route('/check_in', method=['POST'])
+def check_in():
+    data = request.json
+    check_in_query = {
+        "first_name" : data["first_name"],
+        "last_name" : data["last_name"],
+        "n_persons" : data["n_persons"],
+        "tel" : data["tel"],
+        "time" : datetime.now(tz=pytz.utc+7)
+    }
+    doorsonCollections.insert(check_in_query)
+    return {"result" : "Checkin Successfully"}
+
+# @app.route("/check_out", methods=["DELETE"])
+# def checkout():
+#     data = request.json()
