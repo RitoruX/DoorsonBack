@@ -29,13 +29,14 @@ def check_in():
 
 @app.route('/show_n', methods=['GET'])
 def show_n():
-    return doorsonCollections.aggregate([
-        {
-            "$project": {
-                "total_users" : {"$sum" : "$n_persons"}
-            } 
-        }
-    ])
+    data = doorsonCollections.aggregate([
+            {
+                "$project": {
+                    "total_users" : {"$sum" : "$n_persons"}
+                } 
+            }
+        ])
+    return {data}
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3000', debug=True)
