@@ -58,7 +58,21 @@ def show_admin():
             "time" : element['time'],
             "date" : element['date']
         })
-    return output
+    return {"result" : output}
+
+@app.route('/show_users', methods=['GET'])
+def show_users():
+    query = doorsonCollections.find()
+    output = []
+    for element in query:
+        temp_string = element['firstname'][0] + ('x' * len(element['firstname']) - 1)
+        output.append({
+            "firstname" : temp_string,
+            "pplnum" : element['pplnum'],
+            "time" : element['time'],
+            "date" : element['date']
+        })
+    return {"result" : output}
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3000', debug=True)
