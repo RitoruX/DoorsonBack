@@ -3,6 +3,7 @@ from flask_pymongo import PyMongo
 from datetime import datetime
 import pytz
 from flask_cors import CORS, cross_origin
+from bson.json_util import dumps
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://exceed_group12:nhm88g6s@158.108.182.0:2255/exceed_group12'
