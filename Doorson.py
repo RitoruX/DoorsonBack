@@ -33,9 +33,9 @@ def show_n():
             {
                 "$project": {
                     "total_users" : {"$sum" : "$n_persons"}
-                } 
+                }
             }
-        ]).map()
+        ]).toArray()
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3000', debug=True)
