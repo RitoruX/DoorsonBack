@@ -29,7 +29,7 @@ def check_in():
 
 @app.route('/show_n', methods=['GET'])
 def show_n():
-    doorsonCollections.aggregate([
+    return doorsonCollections.aggregate([
         {
             "$project": {
                 "total_users" : {"$sum" : "$n_persons"}
