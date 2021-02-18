@@ -11,7 +11,7 @@ cors = CORS(app, support_credentials=True)
 
 doorsonCollections = mongo.db.data
 
-@app.route('/check_in', method=['POST'])
+@app.route('/check_in', methods=['POST'])
 def check_in():
     data = request.json
     check_in_query = {
