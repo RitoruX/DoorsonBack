@@ -18,9 +18,9 @@ def check_in():
     data = request.json
     now = datetime.now(pytz.timezone('Asia/Bangkok'))
     check_in_query = {
-        "first_name" : data["first_name"],
-        "last_name" : data["last_name"],
-        "n_persons" : data["n_persons"],
+        "firstname" : data["firstname"],
+        "lastname" : data["lastname"],
+        "pplnum" : data["pplnum"],
         "tel" : data["tel"],
         "date" : now.strftime("%d/%b/%Y"),
         "time" : now.strftime('%H:%M:%S')
@@ -33,11 +33,11 @@ def show_n():
     return dumps(list(doorsonCollections.aggregate([{
         "$group": {
             "_id": "null",
-            "total_users" : {"$sum" : "$n_person"}
+            "total_users" : {"$sum" : "$pplnum"}
         }}]).find()))
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='3000', debug=True)
+    app.run(host='0.0.0.0', port='3100', debug=True)
 # @app.route("/check_out", methods=["DELETE"])
 # def checkout():
 #     data = request.json()
