@@ -27,6 +27,15 @@ def check_in():
     doorsonCollections.insert(check_in_query)
     return {"result" : "Checkin Successfully"}
 
+@app.route('/show_n', methods=['GET'])
+def show_n():
+    return doorsonCollections.aggregate([{
+        $group: {
+            "Total Users": {
+                $sum: "$n_persons"
+            }
+        }
+    }])
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3000', debug=True)
