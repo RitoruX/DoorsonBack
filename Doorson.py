@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_pymongo import PyMongo
 from datetime import datetime
+import pytz
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
@@ -19,7 +20,7 @@ def check_in():
         "last_name" : data["last_name"],
         "n_persons" : data["n_persons"],
         "tel" : data["tel"],
-        "time" : datetime.now(tz=pytz.utc+7)
+        "time" : datetime.now(pytz.timezone("Thailand/Bangkok"))
     }
     doorsonCollections.insert(check_in_query)
     return {"result" : "Checkin Successfully"}
