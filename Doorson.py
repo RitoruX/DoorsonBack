@@ -30,11 +30,19 @@ def check_in():
 
 @app.route('/show_n', methods=['GET'])
 def show_n():
-    return dumps(list(doorsonCollections.aggregate([{
+    list_pplnum = list(doorsonCollections.aggregate([{
         "$group": {
             "_id": "null",
             "total_users" : {"$sum" : "$pplnum"}
-        }}]))[0]["total_users"])
+        }}]))[0]
+    list_pplnum.pop("_id")
+    return dumps(list_pplnum)
+
+@app.route('/check_out', methods=['DELETE'])
+def check_out():
+    data = data = request.json
+    doorsonCollections.delete_one({"firstname" : data["firstname"]})
+    return {"result" : "Check-Out Successfully"}
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3100', debug=True)
