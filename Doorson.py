@@ -35,7 +35,7 @@ def show_n():
     list_pplnum = list(doorsonCollections.aggregate([{
         "$group": {
             "_id": "null",
-            "total_users" : {"$sum" : "$int(pplnum)"}
+            "total_users" : {"$sum" : { "$toInt" : "$pplnum"}}
         }}]))[0]
     list_pplnum.pop("_id")
     return dumps(list_pplnum)
