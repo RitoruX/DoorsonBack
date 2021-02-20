@@ -26,7 +26,8 @@ def check_in():
         "tel" : data["tel"],
         "store" : "1",
         "date" : now.strftime("%d/%b/%Y"),
-        "time" : now.strftime('%H:%M:%S')
+        "time" : now.strftime('%H:%M:%S'),
+        "hour" : now.strftime('%H')
     }
     doorsonCollections.insert(check_in_query)
     return {"result" : "Check-In Successfully"}
