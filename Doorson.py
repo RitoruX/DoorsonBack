@@ -39,6 +39,7 @@ def show_n():
     num = 0
     for element in search_store:
         num += int(element['pplnum'])
+        print(num)
     # list_pplnum = list(doorsonCollections.aggregate(
     #     [
     #         {
