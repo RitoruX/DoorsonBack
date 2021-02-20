@@ -35,18 +35,25 @@ def check_in():
 # @cross_origin()
 def show_n():
     args_name = request.args.get('store')
-    list_pplnum = list(doorsonCollections.aggregate(
-        [
-            {
-                "$match" : { "$store" : args_name }
-            },
-            {
-                "$group": { "total_users" : {"$sum" : { "$toInt" : "$pplnum"}} }
-            }
-        ]
-        ))[0]
+    search_store = list(doorsonCollections.find({"store" : args_name}))
+    num = 0
+    for element in search_store:
+        num += int(element['pplnum'])
+    # list_pplnum = list(doorsonCollections.aggregate(
+    #     [
+    #         {
+    #             "$match" : { "$store" : args_name }
+    #         },
+    #         {
+    #             "$group": { "total_users" : {"$sum" : { "$toInt" : "$pplnum"}} }
+    #         }
+    #     ]
+    #     ))[0]
     # list_pplnum.pop("_id")
-    return dumps(list_pplnum)
+    output = {
+        "total_users" : num
+    }
+    return dumps(output)
 
 @app.route('/check_out', methods=['PATCH'])
 # @cross_origin()
@@ -61,10 +68,7 @@ def check_out():
 # @cross_origin()
 def show_admin():
     args_name = request.args.get('store')
-    list_store = list(doorsonCollections.aggregate([{
-        "$group": {
-            "store": args_name
-        }}]))[0]
+    list_store = doorsonCollections.find({ "store" : args_name})
     output = []
     for element in list_store:
         output.append({
@@ -81,10 +85,7 @@ def show_admin():
 # @cross_origin()
 def show_users():
     args_name = request.args.get('store')
-    list_store = list(doorsonCollections.aggregate([{
-        "$group": {
-            "store": args_name
-        }}]))[0]
+    list_store = doorsonCollections.find({ "store" : args_name})
     output = []
     for element in list_store:
         # temp_string = element['firstname'][0:2] + ('x' * (len(element['firstname']) - 1))
