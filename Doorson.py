@@ -59,7 +59,7 @@ def show_n():
 # @cross_origin()
 def check_out():
     data = request.json
-    filt = {'firstname': data['firstname'], 'stores' : data['stores']}
+    filt = {'firstname': data['firstname'], 'store' : data['store']}
     updated_content = {"$set": {'pplnum' : 0}}
     doorsonCollections.update_one(filt, updated_content)
     return {"result" : "Check-Out Successfully"}
