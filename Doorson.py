@@ -24,6 +24,7 @@ def check_in():
         "lastname" : data["lastname"],
         "pplnum" : data["pplnum"],
         "tel" : data["tel"],
+        "store" : data["store"],
         "date" : now.strftime("%d/%b/%Y"),
         "time" : now.strftime('%H:%M:%S')
     }
@@ -33,9 +34,10 @@ def check_in():
 @app.route('/show_n', methods=['GET'])
 # @cross_origin()
 def show_n():
+    args_name = request.args.get('store')
     list_pplnum = list(doorsonCollections.aggregate([{
         "$group": {
-            "_id": "null",
+            "store": args_name,
             "total_users" : {"$sum" : { "$toInt" : "$pplnum"}}
         }}]))[0]
     list_pplnum.pop("_id")
@@ -45,7 +47,7 @@ def show_n():
 # @cross_origin()
 def check_out():
     data = request.json
-    filt = {'firstname': data['firstname']}
+    filt = {'firstname': data['firstname'], 'stores' : data['stores']}
     updated_content = {"$set": {'pplnum' : 0}}
     doorsonCollections.update_one(filt, updated_content)
     return {"result" : "Check-Out Successfully"}
@@ -53,24 +55,33 @@ def check_out():
 @app.route('/show_admin', methods=['GET'])
 # @cross_origin()
 def show_admin():
-    query = doorsonCollections.find()
+    args_name = request.args.get('store')
+    list_store = list(doorsonCollections.aggregate([{
+        "$group": {
+            "store": args_name
+        }}]))[0]
     output = []
-    for element in query:
+    for element in list_store:
         output.append({
             "firstname" : element['firstname'],
             "lastname" : element['lastname'],
             "pplnum" : element['pplnum'],
             "time" : element['time'],
-            "date" : element['date']
+            "date" : element['date'],
+            "store" : element['store']
         })
     return {"result" : output}
 
 @app.route('/show_users', methods=['GET'])
 # @cross_origin()
 def show_users():
-    query = doorsonCollections.find()
+    args_name = request.args.get('store')
+    list_store = list(doorsonCollections.aggregate([{
+        "$group": {
+            "store": args_name
+        }}]))[0]
     output = []
-    for element in query:
+    for element in list_store:
         # temp_string = element['firstname'][0:2] + ('x' * (len(element['firstname']) - 1))
         output.append({
             "firstname" : element['firstname'],
@@ -79,7 +90,6 @@ def show_users():
             "date" : element['date']
         })
     return {"result" : output}
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3000', debug=True)
