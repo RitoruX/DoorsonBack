@@ -9,11 +9,12 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://exceed_group12:nhm88g6s@158.108.182.0:2255/exceed_group12'
 mongo = PyMongo(app)
 
-cors = CORS(app, support_credentials=True)
+cors = CORS(app, resources={r"/": {"origins" : "*"}}, support_credentials=True)
 
 doorsonCollections = mongo.db.data
 
 @app.route('/check_in', methods=['POST'])
+@cross_origin()
 def check_in():
     data = request.json
     now = datetime.now(pytz.timezone('Asia/Bangkok'))
@@ -29,6 +30,7 @@ def check_in():
     return {"result" : "Check-In Successfully"}
 
 @app.route('/show_n', methods=['GET'])
+@cross_origin()
 def show_n():
     list_pplnum = list(doorsonCollections.aggregate([{
         "$group": {
@@ -39,6 +41,7 @@ def show_n():
     return dumps(list_pplnum)
 
 @app.route('/check_out', methods=['PATCH'])
+@cross_origin()
 def check_out():
     data = request.json
     filt = {'firstname': data['firstname']}
@@ -47,6 +50,7 @@ def check_out():
     return {"result" : "Check-Out Successfully"}
 
 @app.route('/show_admin', methods=['GET'])
+@cross_origin()
 def show_admin():
     query = doorsonCollections.find()
     output = []
@@ -61,6 +65,7 @@ def show_admin():
     return {"result" : output}
 
 @app.route('/show_users', methods=['GET'])
+@cross_origin()
 def show_users():
     query = doorsonCollections.find()
     output = []
@@ -77,6 +82,3 @@ def show_users():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='3000', debug=True)
-# @app.route("/check_out", methods=["DELETE"])
-# def checkout():
-#     data = request.json()
