@@ -37,7 +37,7 @@ def show_n():
     args_name = request.args.get('store')
     list_pplnum = list(doorsonCollections.aggregate([{
         "$group": {
-            "store": "1",
+            "store": {"$match": {"store" : args_name}},
             "total_users" : {"$sum" : { "$toInt" : "$pplnum"}}
         }}]))[0]
     # list_pplnum.pop("_id")
