@@ -75,6 +75,7 @@ def show_admin():
             "firstname" : element['firstname'],
             "lastname" : element['lastname'],
             "pplnum" : element['pplnum'],
+            "tel" : element['tel'],
             "time" : element['time'],
             "date" : element['date'],
             "store" : element['store']
