@@ -35,11 +35,16 @@ def check_in():
 # @cross_origin()
 def show_n():
     args_name = request.args.get('store')
-    list_pplnum = list(doorsonCollections.aggregate([{
-        "$group": {
-            "store": {"$match": {"store" : args_name}},
-            "total_users" : {"$sum" : { "$toInt" : "$pplnum"}}
-        }}]))[0]
+    list_pplnum = list(doorsonCollections.aggregate(
+        [
+            {
+                "$match" : { "$store" : args_name }
+            },
+            {
+                "$group": { "total_users" : {"$sum" : { "$toInt" : "$pplnum"}} }
+            }
+        ]
+        ))[0]
     # list_pplnum.pop("_id")
     return dumps(list_pplnum)
 
