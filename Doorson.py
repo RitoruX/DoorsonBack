@@ -24,7 +24,7 @@ def check_in():
         "lastname" : data["lastname"],
         "pplnum" : data["pplnum"],
         "tel" : data["tel"],
-        "store" : data["store"],
+        "store" : "1",
         "date" : now.strftime("%d/%b/%Y"),
         "time" : now.strftime('%H:%M:%S')
     }
@@ -39,7 +39,6 @@ def show_n():
     num = 0
     for element in search_store:
         num += int(element['pplnum'])
-        print(num)
     # list_pplnum = list(doorsonCollections.aggregate(
     #     [
     #         {
