@@ -71,6 +71,9 @@ def check_door_out():
     now = datetime.now(pytz.timezone('Asia/Bangkok'))
     args_name = request.args.get('store')
     post_query = {
+        "firstname" : "check-out",
+        "lastname" : "check-out",
+        "tel" : "000",
         "store" : args_name,
         "pplnum" : "-1",
         "date" : now.strftime("%d/%b/%Y"),
