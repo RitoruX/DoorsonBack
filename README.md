@@ -1,5 +1,5 @@
 # DoorsonBackEnd
-ExceedCamp19 2021 Backend Project
+ExceedCamp19 Backend Project
 
 ## Backend Properties
 * Python
