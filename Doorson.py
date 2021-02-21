@@ -56,14 +56,29 @@ def show_n():
     }
     return dumps(output)
 
-@app.route('/check_out', methods=['PATCH'])
-# @cross_origin()
-def check_out():
-    data = request.json
-    filt = {'firstname': data['firstname'], 'store' : data['store']}
-    updated_content = {"$set": {'pplnum' : 0}}
-    doorsonCollections.update_one(filt, updated_content)
-    return {"result" : "Check-Out Successfully"}
+# @app.route('/check_out', methods=['PATCH'])
+# # @cross_origin()
+# def check_out():
+#     data = request.json
+#     args_name = request.args.get('store')
+#     filt = {'firstname': data['firstname'], 'store' : args_name}
+#     updated_content = {"$set": {'pplnum' : 0}}
+#     doorsonCollections.update_one(filt, updated_content)
+#     return {"result" : "Check-Out Successfully"}
+
+@app.route('/check_door_out', methods=['POST'])
+def check_door_out():
+    now = datetime.now(pytz.timezone('Asia/Bangkok'))
+    args_name = request.args.get('store')
+    post_query = {
+        "store" : args_name,
+        "pplnum" : -1,
+        "date" : now.strftime("%d/%b/%Y"),
+        "time" : now.strftime('%H:%M:%S'),
+        "hour" : now.strftime('%H')
+    }
+    doorsonCollections.insert(post_query)
+    return {"result" : "Door-Off tick detected."}
 
 @app.route('/show_admin', methods=['GET'])
 # @cross_origin()
