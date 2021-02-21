@@ -2,6 +2,7 @@
 ExceedCamp19 2021 Backend Project
 
 ## Backend Properties
+* Python
 * MongoDB
 * Flask
 * Run on RaspberryPi
