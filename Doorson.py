@@ -72,7 +72,7 @@ def check_door_out():
     args_name = request.args.get('store')
     post_query = {
         "store" : args_name,
-        "pplnum" : -1,
+        "pplnum" : "-1",
         "date" : now.strftime("%d/%b/%Y"),
         "time" : now.strftime('%H:%M:%S'),
         "hour" : now.strftime('%H')
